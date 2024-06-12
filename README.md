@@ -1,4 +1,4 @@
-![CI GitHubAction](https://github.com/EugeneVolkonskiy/job4j_mock/tree/master/.github/workflows/maven.yml/badge.svg)
+![CI GitHubAction](https://github.com/EugeneVolkonskiy/job4j_mock/actions/workflows/maven.yml/badge.svg)
 
 
 ## CheckDev - платформа для проведения пробных собеседований в IT

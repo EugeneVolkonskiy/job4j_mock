@@ -6,11 +6,14 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import ru.job4j.site.domain.StatusInterview;
 import ru.job4j.site.dto.InterviewDTO;
 import ru.job4j.site.util.RestPageImpl;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Service
 public class InterviewsService {
@@ -71,5 +74,19 @@ public class InterviewsService {
             }
         }
         return builder.toString();
+    }
+
+    public List<InterviewDTO> getByStatus(int status) throws JsonProcessingException {
+        var text = new RestAuthCall(String.format("http://localhost:9912/interviews/findByStatus/%d", status))
+                .get();
+        var mapper = new ObjectMapper();
+        return mapper.readValue(text, new TypeReference<>() {
+        });
+    }
+
+    public Map<Integer, List<InterviewDTO>> getNewInterviews() throws JsonProcessingException {
+        List<InterviewDTO> interviews = getByStatus(StatusInterview.IS_NEW.getId());
+        return interviews.stream()
+                .collect(groupingBy(InterviewDTO::getMode, HashMap::new, Collectors.toCollection(ArrayList::new)));
     }
 }

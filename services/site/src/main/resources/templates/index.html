@@ -105,7 +105,10 @@
                                 </small>
                             </td>
                             <td>
-                                <span class="badge bg-success">Новых: 100</span>
+                                <span class="badge bg-success">Новых:
+                                    <span th:text="${newInterviewSize.containsKey(category.id)} ?
+                                    ${newInterviewSize.get(category.id).size()} : '0'"></span>
+                                </span>
                             </td>
                         </tr>
                         </tbody>

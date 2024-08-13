@@ -13,6 +13,8 @@ import ru.job4j.site.service.NotificationService;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.Map;
+
 import static ru.job4j.site.controller.RequestResponseTools.getToken;
 
 @Controller
@@ -31,6 +33,8 @@ public class IndexController {
         );
         try {
             model.addAttribute("categories", categoriesService.getMostPopular());
+            model.addAttribute("newInterviewSize", interviewsService.getNewInterviews());
+
             var token = getToken(req);
             if (token != null) {
                 var userInfo = authService.userInfo(token);

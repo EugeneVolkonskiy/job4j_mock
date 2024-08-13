@@ -73,6 +73,10 @@ public class InterviewService {
         return interviewRepository.findByTopicIdIn(topicsIds, PageRequest.of(page, size));
     }
 
+    public List<Interview> findByStatus(int status) {
+        return interviewRepository.findByStatus(status);
+    }
+
     public boolean update(Interview interview) {
         interviewRepository.save(interview);
         return true;
